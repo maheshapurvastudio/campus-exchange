@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.aistudio.campus_exchange.app",
+      "sha256_cert_fingerprints": [
+        "43:38:CE:93:66:0A:88:42:5B:13:CD:B4:42:AB:2E:FD:DB:68:EC:B6:08:81:19:A7:81:32:F7:D3:EC:EA:83:BD"
+      ]
+    }
+  }
+]
