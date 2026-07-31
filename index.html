@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Exchange — The Ultimate Marketplace &amp; Community Platform for College Students</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet-900:#1D1440;
+    --violet-800:#2A1D66;
+    --violet-700:#3B2996;
+    --violet-600:#4F3CC9;
+    --violet-500:#6952E0;
+    --violet-100:#EFEBFC;
+    --amber-500:#FFB13F;
+    --amber-600:#FF9A1F;
+    --ink:#1B1730;
+    --ink-soft:#57516F;
+    --ink-faint:#8B84A6;
+    --paper:#F8F7FC;
+    --card:#FFFFFF;
+    --line:#E7E3F5;
+    --co:#3D6BFF;
+    --aiml:#8A3FFC;
+    --me:#FF7A3D;
+    --ce:#22B07D;
+    --ee:#F2B705;
+    --et:#FF4FA0;
+    --shadow-sm: 0 2px 10px rgba(29,20,64,0.06);
+    --shadow-md: 0 12px 30px rgba(29,20,64,0.10);
+    --shadow-lg: 0 24px 60px rgba(29,20,64,0.18);
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+  ul{margin:0;padding:0;list-style:none;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{position:relative;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{
+    outline:3px solid var(--amber-500);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(248,247,252,0.82);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--violet-900);
+  }
+  .brand .mark{
+    width:34px;height:34px;
+    border-radius:10px;
+    background:linear-gradient(145deg,var(--violet-600),var(--violet-800));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-sm);
+    flex-shrink:0;
+  }
+  .brand .mark svg{width:18px;height:18px;}
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:34px;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .nav-links a{transition:color .2s;}
+  .nav-links a:hover{color:var(--violet-700);}
+  .nav-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--violet-900);
+    color:#fff;
+    padding:11px 20px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:14px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:var(--shadow-md); background:var(--violet-700);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--violet-100);
+    color:var(--violet-700);
+    font-weight:700;
+    font-size:13px;
+    padding:8px 16px 8px 12px;
+    border-radius:999px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--amber-500);
+  }
+  .hero h1{
+    font-size:clamp(38px, 4.6vw, 60px);
+    line-height:1.04;
+    font-weight:700;
+    color:var(--violet-900);
+  }
+  .hero h1 span{
+    background:linear-gradient(100deg,var(--violet-600), var(--amber-500) 105%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero .tagline{
+    margin-top:22px;
+    font-size:19px;
+    font-weight:500;
+    color:var(--violet-700);
+  }
+  .hero .desc{
+    margin-top:14px;
+    font-size:16px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:520px;
+  }
+  .hero-actions{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:34px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(135deg,var(--amber-500),var(--amber-600));
+    color:var(--violet-900);
+    font-weight:700;
+    font-size:15.5px;
+    padding:16px 26px;
+    border-radius:16px;
+    box-shadow:0 14px 30px rgba(255,154,31,0.35);
+    transition:transform .22s ease, box-shadow .22s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 18px 36px rgba(255,154,31,0.45);}
+  .btn-primary svg{width:20px;height:20px;}
+  .btn-secondary{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    font-size:15px;
+    color:var(--violet-800);
+    padding:16px 6px;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s;
+  }
+  .btn-secondary:hover{border-color:var(--violet-600);}
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:40px;
+    flex-wrap:wrap;
+  }
+  .hero-meta .stat b{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:24px;
+    color:var(--violet-900);
+  }
+  .hero-meta .stat span{
+    font-size:12.5px;
+    color:var(--ink-faint);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+
+  /* ---------- PHONE MOCK / NOTICEBOARD ---------- */
+  .hero-visual{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:560px;
+  }
+  .board-backdrop{
+    position:absolute;
+    width:440px;
+    height:520px;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(105,82,224,0.18), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(255,177,63,0.22), transparent 50%);
+    border-radius:40px;
+    filter:blur(2px);
+  }
+  .phone{
+    position:relative;
+    width:270px;
+    height:552px;
+    background:var(--violet-900);
+    border-radius:44px;
+    padding:14px;
+    box-shadow:var(--shadow-lg);
+    z-index:3;
+  }
+  .phone-notch{
+    position:absolute;
+    top:14px;left:50%;
+    transform:translateX(-50%);
+    width:90px;height:22px;
+    background:var(--violet-900);
+    border-radius:0 0 16px 16px;
+    z-index:5;
+  }
+  .phone-screen{
+    width:100%;height:100%;
+    background:var(--paper);
+    border-radius:32px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    font-family:'Inter',sans-serif;
+  }
+  .ps-topbar{
+    background:linear-gradient(135deg,var(--violet-700),var(--violet-600));
+    padding:30px 18px 16px;
+    color:#fff;
+  }
+  .ps-topbar .greet{font-size:11px; opacity:.8; font-weight:600; letter-spacing:.03em;}
+  .ps-topbar .name{font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; margin-top:2px;}
+  .ps-search{
+    margin-top:14px;
+    background:rgba(255,255,255,0.16);
+    border-radius:12px;
+    padding:9px 12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11.5px;
+    color:rgba(255,255,255,0.85);
+  }
+  .ps-search svg{width:13px;height:13px; flex-shrink:0;}
+  .ps-chips{
+    display:flex;
+    gap:6px;
+    padding:12px 14px 8px;
+    overflow:hidden;
+  }
+  .ps-chip{
+    font-size:9.5px;
+    font-weight:700;
+    padding:5px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .ps-body{
+    flex:1;
+    padding:6px 14px 14px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    overflow:hidden;
+  }
+  .ps-card{
+    background:#fff;
+    border-radius:14px;
+    padding:9px;
+    box-shadow:0 4px 12px rgba(29,20,64,0.07);
+  }
+  .ps-thumb{
+    width:100%;height:46px;
+    border-radius:9px;
+    margin-bottom:7px;
+  }
+  .ps-card .t{font-size:9.5px; font-weight:700; color:var(--ink); line-height:1.25;}
+  .ps-card .p{font-size:10px; font-weight:800; color:var(--violet-700); margin-top:4px;}
+  .ps-card .tag{font-size:7.5px; font-weight:700; color:var(--ink-faint); margin-top:3px;}
+
+  /* floating sticky notes */
+  .pin{
+    position:absolute;
+    background:#fff;
+    border-radius:16px;
+    box-shadow:var(--shadow-md);
+    padding:12px 14px;
+    z-index:4;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    max-width:200px;
+  }
+  .pin .ico{
+    width:34px;height:34px;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .pin .ico svg{width:17px;height:17px;color:#fff;}
+  .pin .tt{font-size:12px; font-weight:700; color:var(--ink); line-height:1.25;}
+  .pin .sb{font-size:10.5px; color:var(--ink-faint); font-weight:600; margin-top:1px;}
+  .pin-1{top:6%; left:-6%; transform:rotate(-7deg);}
+  .pin-2{bottom:16%; right:-9%; transform:rotate(6deg);}
+  .pin-3{bottom:-2%; left:2%; transform:rotate(-3deg);}
+  .pin-tape{
+    position:absolute;
+    top:-9px;left:22px;
+    width:38px;height:16px;
+    background:rgba(255,177,63,0.85);
+    border-radius:3px;
+    transform:rotate(-4deg);
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .sec-head{
+    max-width:640px;
+    margin:0 auto 52px;
+    text-align:center;
+  }
+  .sec-head .eyebrow{margin-bottom:16px;}
+  .sec-head h2{
+    font-size:clamp(28px,3.4vw,42px);
+    font-weight:700;
+    color:var(--violet-900);
+    line-height:1.15;
+  }
+  .sec-head p{
+    margin-top:14px;
+    font-size:16px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .features{padding:110px 0 100px;}
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:22px;
+  }
+  .fcard{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:30px 26px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .fcard:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-md);
+    border-color:transparent;
+  }
+  .fcard .ficon{
+    width:52px;height:52px;
+    border-radius:15px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .fcard .ficon svg{width:25px;height:25px;color:#fff;}
+  .fcard h3{
+    font-size:18.5px;
+    font-weight:700;
+    color:var(--violet-900);
+    margin-bottom:9px;
+  }
+  .fcard p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+  }
+  .fcard .dept-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:14px;
+  }
+  .dept-tag{
+    font-size:10.5px;
+    font-weight:800;
+    padding:4px 9px;
+    border-radius:7px;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .how{
+    padding:100px 0 110px;
+    background:var(--violet-900);
+    color:#fff;
+    border-radius:48px;
+    margin:0 20px;
+    overflow:hidden;
+    position:relative;
+  }
+  .how::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 8% 12%, rgba(105,82,224,0.5), transparent 40%),
+      radial-gradient(circle at 92% 88%, rgba(255,177,63,0.22), transparent 45%);
+    pointer-events:none;
+  }
+  .how .wrap{position:relative;}
+  .how .sec-head h2, .how .sec-head p{color:#fff;}
+  .how .sec-head p{color:rgba(255,255,255,0.72);}
+  .how .eyebrow{background:rgba(255,255,255,0.12); color:#fff;}
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+    counter-reset:step;
+    position:relative;
+  }
+  .step{
+    position:relative;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:var(--radius-lg);
+    padding:34px 26px;
+  }
+  .step .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--amber-500);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .step .num::before{
+    content:"";
+    width:26px;height:1px;
+    background:var(--amber-500);
+    opacity:.6;
+  }
+  .step h3{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .step p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:rgba(255,255,255,0.68);
+  }
+  .step-arrow{
+    display:none;
+  }
+
+  /* ---------- DEEP LINK BANNER ---------- */
+  .deeplink{padding:100px 0;}
+  .dl-card{
+    background:linear-gradient(120deg,var(--violet-100), #fff 60%);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:52px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    box-shadow:var(--shadow-sm);
+  }
+  .dl-card h2{
+    font-size:clamp(24px,3vw,32px);
+    color:var(--violet-900);
+    font-weight:700;
+    line-height:1.2;
+  }
+  .dl-card p{
+    margin-top:14px;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+    max-width:460px;
+  }
+  .dl-code{
+    margin-top:20px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--violet-900);
+    color:#B9AEF5;
+    font-family:monospace;
+    font-size:12.5px;
+    padding:12px 16px;
+    border-radius:11px;
+  }
+  .dl-code b{color:#fff; font-weight:700;}
+  .dl-visual{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0;
+  }
+  .dl-node{
+    width:96px;height:96px;
+    border-radius:24px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-md);
+    flex-shrink:0;
+  }
+  .dl-node.web{background:#fff; border:1px solid var(--line);}
+  .dl-node.app{background:linear-gradient(145deg,var(--violet-600),var(--violet-800));}
+  .dl-node svg{width:38px;height:38px;}
+  .dl-node.web svg{color:var(--violet-700);}
+  .dl-node.app svg{color:#fff;}
+  .dl-path{
+    flex:1;
+    height:2px;
+    background:repeating-linear-gradient(90deg,var(--violet-500) 0 8px, transparent 8px 16px);
+    margin:0 14px;
+    position:relative;
+    min-width:40px;
+  }
+  .dl-path::after{
+    content:"";
+    position:absolute;
+    right:-2px; top:50%;
+    width:9px;height:9px;
+    border-right:2px solid var(--violet-500);
+    border-top:2px solid var(--violet-500);
+    transform:translateY(-50%) rotate(45deg);
+  }
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{
+    padding:110px 0 100px;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:clamp(28px,3.6vw,44px);
+    color:var(--violet-900);
+    font-weight:700;
+    max-width:600px;
+    margin:0 auto;
+    line-height:1.2;
+  }
+  .cta-band p{
+    margin-top:14px;
+    color:var(--ink-soft);
+    font-size:16px;
+  }
+  .cta-band .hero-actions{justify-content:center; margin-top:32px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--violet-900);
+    color:rgba(255,255,255,0.75);
+    padding:70px 0 30px;
+    margin-top:40px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:40px;
+    padding-bottom:44px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .built-by{
+    text-align:center;
+    padding:28px 0 26px;
+    font-size:14px;
+    color:rgba(255,255,255,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .built-by a{
+    font-weight:700;
+    color:#fff;
+    border-bottom:1px solid rgba(255,177,63,0.6);
+    transition:color .2s, border-color .2s;
+  }
+  .built-by a:hover{color:var(--amber-500); border-color:var(--amber-500);}
+  .footer-brand .brand{color:#fff;}
+  .footer-brand p{
+    margin-top:16px;
+    font-size:14px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.55);
+    max-width:280px;
+  }
+  .footer-col h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    margin-bottom:18px;
+  }
+  .footer-col ul li{margin-bottom:12px;}
+  .footer-col a{
+    font-size:14px;
+    color:rgba(255,255,255,0.65);
+    transition:color .2s;
+  }
+  .footer-col a:hover{color:var(--amber-500);}
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:26px;
+    font-size:13px;
+    color:rgba(255,255,255,0.45);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .footer-bottom .flinks{display:flex; gap:22px;}
+  .footer-bottom a:hover{color:#fff;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr; text-align:center;}
+    .hero .desc{margin-left:auto; margin-right:auto;}
+    .hero-actions{justify-content:center;}
+    .hero-meta{justify-content:center;}
+    .hero-visual{margin-top:20px;}
+    .footer-grid{grid-template-columns:1fr; row-gap:36px;}
+    .footer-brand p{margin-left:0; margin-right:0;}
+    .steps{grid-template-columns:1fr;}
+    .dl-card{grid-template-columns:1fr;}
+    .dl-visual{order:-1;}
+  }
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .wrap{padding:0 20px;}
+    .how{margin:0 12px; border-radius:32px; padding:70px 0 80px;}
+    .dl-card{padding:32px 24px;}
+    .footer-grid{grid-template-columns:1fr;}
+    .footer-bottom{flex-direction:column; align-items:flex-start;}
+    .phone{width:230px; height:470px;}
+    .board-backdrop{width:340px; height:420px;}
+    .pin{padding:9px 11px; max-width:150px;}
+    .pin .tt{font-size:10.5px;}
+    .pin .sb{font-size:9px;}
+    .pin-1{left:-2%;}
+    .pin-2{right:-4%;}
+  }
+  @media (max-width:420px){
+    .hero{padding:56px 0 40px;}
+    .btn-primary,.btn-secondary{width:100%; justify-content:center;}
+    .hero-actions{flex-direction:column; width:100%;}
+    .pin-1{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 8L12 4L20 8L12 12L4 8Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8V16L12 20L20 16V8" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </span>
+      Campus Exchange
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#deeplink">Deep links</a>
+      <a href="#footer">Support</a>
+    </nav>
+    <a href="#download" class="nav-cta">Download APK</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Built for your batch, your branch, your block</span>
+        <h1>The campus noticeboard, <span>rebuilt for your phone.</span></h1>
+        <p class="tagline">The Ultimate Marketplace &amp; Community Platform for College Students</p>
+        <p class="desc">Buy, sell, and trade textbooks, notes, electronics, hostel gear, and study materials — securely, within your own student community. No strangers, no scams, just your campus.</p>
+        <div class="hero-actions">
+          <a href="#download" class="btn-primary" id="download">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3V15M12 15L7 10M12 15L17 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 18V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            Download APK
+          </a>
+          <a href="#how" class="btn-secondary">See how it works →</a>
+        </div>
+        <div class="hero-meta">
+          <div class="stat"><b>6</b><span>Departments</span></div>
+          <div class="stat"><b>FE–BE</b><span>All batch years</span></div>
+          <div class="stat"><b>0</b><span>Middlemen</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="board-backdrop"></div>
+
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="ps-topbar">
+              <div class="greet">Welcome back</div>
+              <div class="name">@ananya_co</div>
+              <div class="ps-search">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Search notes, gadgets, gear…
+              </div>
+            </div>
+            <div class="ps-chips">
+              <span class="ps-chip" style="background:var(--violet-100); color:var(--violet-700);">All</span>
+              <span class="ps-chip" style="background:#EAF0FF; color:var(--co);">CO</span>
+              <span class="ps-chip" style="background:#F3EAFF; color:var(--aiml);">AIML</span>
+              <span class="ps-chip" style="background:#FFEEE4; color:var(--me);">ME</span>
+            </div>
+            <div class="ps-body">
+              <div class="ps-card">
+                <div class="ps-thumb" style="background:linear-gradient(135deg,#DCE6FF,#B8CBFF);"></div>
+                <div class="t">Data Structures — 3rd Ed.</div>
+                <div class="p">₹350</div>
+                <div class="tag">TE · CO</div>
+              </div>
+              <div class="ps-card">
+                <div class="ps-thumb" style="background:linear-gradient(135deg,#FFE3C7,#FFC98F);"></div>
+                <div class="t">Arduino Uno + Sensor Kit</div>
+                <div class="p">₹899</div>
+                <div class="tag">SE · EE</div>
+              </div>
+              <div class="ps-card">
+                <div class="ps-thumb" style="background:linear-gradient(135deg,#E4E0FF,#C9C0FF);"></div>
+                <div class="t">AIML Handwritten Notes</div>
+                <div class="p">₹120</div>
+                <div class="tag">BE · AIML</div>
+              </div>
+              <div class="ps-card">
+                <div class="ps-thumb" style="background:linear-gradient(135deg,#D8F5E6,#B0EACB);"></div>
+                <div class="t">Hostel Study Lamp</div>
+                <div class="p">₹250</div>
+                <div class="tag">FE · CE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pin pin-1">
+          <span class="pin-tape"></span>
+          <span class="ico" style="background:var(--violet-600);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4H16C17.1 4 18 4.9 18 6V20L14 17.5L10 20L6 17.5L4 20V4Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <span><span class="tt">Roll No. 21CO114</span><br><span class="sb">TE · CO · Verified</span></span>
+        </div>
+
+        <div class="pin pin-2">
+          <span class="ico" style="background:var(--amber-500);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5C21 16.19 16.97 20 12 20C10.6 20 9.28 19.7 8.11 19.16L3 20L4.5 15.85C3.55 14.6 3 13.1 3 11.5C3 6.81 7.03 3 12 3C16.97 3 21 6.81 21 11.5Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <span><span class="tt">New message</span><br><span class="sb">"Meet at library, 4pm?"</span></span>
+        </div>
+
+        <div class="pin pin-3">
+          <span class="ico" style="background:var(--ce);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span><span class="tt">Deal closed</span><br><span class="sb">Textbook exchanged ✓</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span> Everything on one app</span>
+        <h2>Made for how your campus actually runs</h2>
+        <p>Every feature is built around real student life — department groups, batch years, and the five-minute meetup between lectures.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="fcard">
+          <div class="ficon" style="background:linear-gradient(145deg,var(--violet-600),var(--violet-800));">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 8L12 4L20 8L12 12L4 8Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8V16L12 20L20 16V8" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Campus Marketplace</h3>
+          <p>Buy and sell textbooks, notes, electronics, and hostel gear — sorted by department and academic year, so listings only show what's actually relevant to you.</p>
+          <div class="dept-row">
+            <span class="dept-tag" style="background:#EAF0FF;color:var(--co);">CO</span>
+            <span class="dept-tag" style="background:#F3EAFF;color:var(--aiml);">AIML</span>
+            <span class="dept-tag" style="background:#FFEEE4;color:var(--me);">ME</span>
+            <span class="dept-tag" style="background:#E4F9EF;color:var(--ce);">CE</span>
+            <span class="dept-tag" style="background:#FFF7DA;color:#B98900;">EE</span>
+            <span class="dept-tag" style="background:#FFE7F2;color:var(--et);">EJ/ET</span>
+          </div>
+        </div>
+
+        <div class="fcard">
+          <div class="ficon" style="background:linear-gradient(145deg,var(--amber-500),var(--amber-600));">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5C21 16.19 16.97 20 12 20C10.6 20 9.28 19.7 8.11 19.16L3 20L4.5 15.85C3.55 14.6 3 13.1 3 11.5C3 6.81 7.03 3 12 3C16.97 3 21 6.81 21 11.5Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="11.5" r="1" fill="white"/><circle cx="12" cy="11.5" r="1" fill="white"/><circle cx="15.5" cy="11.5" r="1" fill="white"/></svg>
+          </div>
+          <h3>Instant Student Chat</h3>
+          <p>Real-time messaging built into every listing, with custom notification sounds so you never miss a reply — coordinate the meetup while you're still on campus.</p>
+        </div>
+
+        <div class="fcard">
+          <div class="ficon" style="background:linear-gradient(145deg,#22B07D,#178A61);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4H16C17.1 4 18 4.9 18 6V20L14 17.5L10 20L6 17.5L4 20V4Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><circle cx="11" cy="9.5" r="2" stroke="white" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Verified Student Profiles</h3>
+          <p>Custom @handles, department badges, batch years, and roll number verification — so you always know exactly who you're dealing with.</p>
+        </div>
+
+        <div class="fcard">
+          <div class="ficon" style="background:linear-gradient(145deg,#3D6BFF,#2748C4);">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/><path d="M21 21L16.5 16.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Smart Search &amp; Filters</h3>
+          <p>Find exactly what you need in seconds — filter listings by category, price range, department, or keyword instead of scrolling endlessly.</p>
+        </div>
+
+        <div class="fcard">
+          <div class="ficon" style="background:linear-gradient(145deg,#FF4FA0,#D62E7B);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 12H15" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M10 7H7C4.79 7 3 8.79 3 11V13C3 15.21 4.79 17 7 17H10" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M14 7H17C19.21 7 21 8.79 21 11V13C21 15.21 19.21 17 17 17H14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Deep Link Integration</h3>
+          <p>Item links shared anywhere on the web open directly inside the app, thanks to full Digital Asset Links support — no dead ends, no redirect pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span> Start in under a minute</span>
+        <h2>From install to exchange, three steps</h2>
+        <p>No complicated setup — just your college details, and you're in.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Create your profile</h3>
+          <p>Pick your @handle, add your department and batch year, and verify your roll number to unlock your student badge.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>List or search items</h3>
+          <p>Post what you're selling in seconds, or filter the marketplace by category, department, and price to find what you need.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>Connect &amp; exchange</h3>
+          <p>Message the seller instantly, agree on a spot, and meet on campus. Simple, safe, and all within your own college community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEEP LINK BANNER -->
+  <section class="deeplink" id="deeplink">
+    <div class="wrap">
+      <div class="dl-card">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Digital Asset Links</span>
+          <h2>Share a link. It opens in the app. Every time.</h2>
+          <p>Every Campus Exchange listing has a shareable web link. Send it on WhatsApp, in a group chat, or on a noticeboard post — if the app is installed, it opens straight to that listing, no browser detour.</p>
+          <div class="dl-code">campusexchange.com/product/<b>*</b> → campusexchange://</div>
+        </div>
+        <div class="dl-visual">
+          <div class="dl-node web">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12H21M12 3C14.5 5.5 15.8 8.5 15.8 12C15.8 15.5 14.5 18.5 12 21C9.5 18.5 8.2 15.5 8.2 12C8.2 8.5 9.5 5.5 12 3Z" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <div class="dl-path"></div>
+          <div class="dl-node app">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="7" y="2" width="10" height="20" rx="2.5" stroke="white" stroke-width="1.8"/><path d="M11 19H13" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Your batch is already trading. Join in.</h2>
+      <p>Free to install, free to list, built for students only.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3V15M12 15L7 10M12 15L17 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 18V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          Download APK
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 8L12 4L20 8L12 12L4 8Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8V16L12 20L20 16V8" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          Campus Exchange
+        </a>
+        <p>The marketplace and community platform built for college students — by students who were tired of dead noticeboards.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#deeplink">Deep links</a></li>
+          <li><a href="#">Download APK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="built-by">Built By <a href="https://maheshapurvastudio.github.io/" target="_blank" rel="noopener">Mahesh Apurva</a></div>
+    <div class="footer-bottom">
+      <span>© 2026 Campus Exchange. Built for students, by students.</span>
+      <span class="flinks">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
