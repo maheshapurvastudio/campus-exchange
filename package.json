@@ -1,0 +1,13 @@
+{
+  "name": "cloudinary-cleanup-gha",
+  "description": "Standalone script that reconciles Cloudinary images against Firestore references, run via GitHub Actions",
+  "main": "reconcile.js",
+  "scripts": {
+    "reconcile": "node reconcile.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "cloudinary": "^2.0.0"
+  },
+  "private": true
+}
