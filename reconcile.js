@@ -6,9 +6,15 @@
  * and are older than GRACE_PERIOD_HOURS (so a brand-new upload never gets
  * caught mid-flow, before its Firestore doc has been written).
  *
- * FIRESTORE SCHEMA ASSUMPTIONS (adjust to match your app):
- *   products/{productId}  -> { imagePublicIds: ["campus-exchange/products/abc123", ...] }
- *   users/{userId}        -> { profileImagePublicId: "campus-exchange/profiles/xyz789" }
+ * FIRESTORE SCHEMA (matches the actual app):
+ *   listings_items/{itemId}  -> { photoUrls: ["https://res.cloudinary.com/.../v123/campus-exchange/products/abc.jpg", ...] }
+ *   users/{userId}           -> { photoUrl: "https://res.cloudinary.com/.../v123/campus-exchange/profiles/xyz.jpg" }
+ *
+ * There's no separate public_id field being saved, so instead of reading one,
+ * this script DERIVES the public_id straight from each Cloudinary URL
+ * (everything after "/upload/", minus any transformation segments, the
+ * version segment, and the file extension). This means it works correctly
+ * whether or not a public_id field ever gets added later.
  *
  * REQUIRED ENVIRONMENT VARIABLES (set as GitHub Secrets, injected by the workflow):
  *   FIREBASE_SERVICE_ACCOUNT   - full service account JSON, as a string
@@ -31,6 +37,39 @@ function requireEnv(name) {
   return value;
 }
 
+/**
+ * Extracts a Cloudinary public_id from a delivery URL.
+ * Handles URLs with or without a version segment (v123456) and with or
+ * without transformation segments (e.g. c_fill,w_400).
+ * Returns null if the URL doesn't look like a Cloudinary upload URL.
+ */
+function extractPublicIdFromUrl(url) {
+  if (!url || typeof url !== "string") return null;
+
+  const uploadMarker = "/upload/";
+  const idx = url.indexOf(uploadMarker);
+  if (idx === -1) return null;
+
+  const afterUpload = url.slice(idx + uploadMarker.length);
+  const segments = afterUpload.split("/");
+
+  const isVersionSegment = (seg) => /^v\d+$/.test(seg);
+  // Transformation segments look like "c_fill,w_400,h_400" or "q_auto" —
+  // short letter_value pairs, optionally comma-separated, no dots or slashes.
+  const isTransformationSegment = (seg) =>
+    seg.includes(",") || /^[a-z]{1,3}_[^./]+$/i.test(seg);
+
+  const idSegments = segments.filter(
+    (seg) => !isVersionSegment(seg) && !isTransformationSegment(seg)
+  );
+
+  const publicIdWithExt = idSegments.join("/");
+  const lastDot = publicIdWithExt.lastIndexOf(".");
+  const publicId = lastDot !== -1 ? publicIdWithExt.slice(0, lastDot) : publicIdWithExt;
+
+  return publicId || null;
+}
+
 async function main() {
   // --- Init Firebase Admin from the service account JSON secret ---
   const serviceAccount = JSON.parse(requireEnv("FIREBASE_SERVICE_ACCOUNT"));
@@ -49,19 +88,24 @@ async function main() {
   // --- a) Collect every public_id currently referenced in Firestore ---
   const referencedIds = new Set();
 
-  const productsSnap = await db.collection("products").get();
-  productsSnap.forEach((doc) => {
-    const ids = doc.data().imagePublicIds || [];
-    ids.forEach((id) => referencedIds.add(id));
+  const listingsSnap = await db.collection("listings_items").get();
+  listingsSnap.forEach((doc) => {
+    const urls = doc.data().photoUrls || [];
+    urls.forEach((url) => {
+      const publicId = extractPublicIdFromUrl(url);
+      if (publicId) referencedIds.add(publicId);
+    });
   });
 
   const usersSnap = await db.collection("users").get();
   usersSnap.forEach((doc) => {
-    const id = doc.data().profileImagePublicId;
-    if (id) referencedIds.add(id);
+    const url = doc.data().photoUrl;
+    const publicId = extractPublicIdFromUrl(url);
+    if (publicId) referencedIds.add(publicId);
   });
 
   console.log(`Found ${referencedIds.size} referenced image(s) in Firestore.`);
+  console.log("Sample referenced public_ids:", Array.from(referencedIds).slice(0, 5));
 
   // --- b) List every resource in Cloudinary (paginated, 500 per page) ---
   let nextCursor = undefined;
