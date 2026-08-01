@@ -26,7 +26,7 @@
 const admin = require("firebase-admin");
 const cloudinary = require("cloudinary").v2;
 
-const GRACE_PERIOD_HOURS = 48;
+const GRACE_PERIOD_HOURS = 0;
 const CLOUDINARY_ROOT_FOLDER = "campus-exchange"; // scope this to your upload folder
 
 function requireEnv(name) {
